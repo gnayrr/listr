@@ -45,7 +45,7 @@ module.exports = function (grunt) { 'use strict';
 
 			options: {
 				specs: 'test/**/*.js',
-				vendor: 'vendor/**/*.js'
+				vendor: 'node_modules/lodash/*.js'
 			}
 		}
 	});
