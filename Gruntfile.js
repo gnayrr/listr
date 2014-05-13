@@ -41,6 +41,8 @@ module.exports = function (grunt) { 'use strict';
 		jasmine: {
 			src: 'src/**/*.js',
 
+			dist: 'dist/**/*.js',
+
 			options: {
 				specs: 'test/**/*.js',
 				vendor: 'vendor/**/*.js'
@@ -53,7 +55,7 @@ module.exports = function (grunt) { 'use strict';
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
 
-	grunt.registerTask('test', ['jshint', 'jasmine']);
-	grunt.registerTask('release', ['test', 'uglify']);
+	grunt.registerTask('test', ['jshint', 'jasmine:src']);
+	grunt.registerTask('release', ['test', 'uglify', 'jasmine:dist']);
 	grunt.registerTask('default', ['test']);
 };
