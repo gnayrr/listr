@@ -7,7 +7,7 @@
 		input = input || [];
 
 
-		var VERSION = '0.1.0';
+		var VERSION = '0.2.1';
 
 
 		/* listr operates in the lodash context */
