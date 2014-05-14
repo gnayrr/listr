@@ -1,1 +1,0 @@
-/home/leebuntu/workspace/nodejs/gh-pages-creator/public/js
