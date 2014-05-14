@@ -34,7 +34,7 @@ _.listr(
 
 ###Getting Started
 
-You need [lodash](//lodash.com "lodash.com"). Once lodash and listr are loaded:
+You need [lodash](http://lodash.com "lodash.com"). Once lodash and listr are loaded:
 
 ```js
 _.mixin({
@@ -121,7 +121,7 @@ Returns `true` or `false` for whether listr is ready for work. This is determine
 
 Returns the version of the currently loaded listr.
 
-
-
+###Status
+The API is unlikely to change, though more options may be added until a major release. Do you have recommendations? Please contribute!
 
 
