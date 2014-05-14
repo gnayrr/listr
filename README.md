@@ -2,7 +2,7 @@
 
 ###Overview
 
-lodash.listr is a mixin for lodash. Once you mix it in by calling `_.mixin`, you can call it anytime you need to quickly create some DOM element. listr actually does very little, and is just a convention for convenient DOM manipulation. Everything you already know about DOM elements, like `className`, `tagName`, `id`, `title`, `spellcheck`, etc, are available to you as-is. I didn't want to learn a bunch of new API and methods, so I created listr (ironic, I know). I hope you find it as intuitive as I do.
+listr is a mixin for lodash for easy DOM element creation. Everything you already know about DOM elements, like `className`, `tagName`, `id`, `title`, `spellcheck`, etc, are available to you as-is. I didn't want to learn a bunch of new API and methods, so I created listr (ironic, I know). I hope you find it as intuitive as I do.
 
 It works in both the client and the server (with Node.js and something like phantom or jsdom).
 
