@@ -1,8 +1,9 @@
-#lodash.listr
+#lodash.listr v0.2.1
+A Lo-Dash mixin for generating DOM elements
 
 ###Overview
 
-listr is a mixin for lodash for easy DOM element creation. Everything you already know about DOM elements, like `className`, `tagName`, `id`, `title`, `spellcheck`, etc, are available to you as-is. I didn't want to learn a bunch of new API and methods, so I created listr (ironic, I know). I hope you find it as intuitive as I do.
+listr helps you create DOM elements. Everything you already know about DOM elements, like `className`, `tagName`, `id`, `title`, `spellcheck`, etc, are available to you as-is. I didn't want to learn a bunch of new API and methods, so I created listr (ironic, I know). I hope you find it as intuitive as I do.
 
 It works in both the client and the server (with Node.js and something like phantom or jsdom).
 
