@@ -299,6 +299,7 @@ describe('_.listr basic operations', function () {
 			expect(_.listr([key, '&lt;']).firstChild.textContent).toEqual('<');
 			expect(_.listr([key, '&gt;']).firstChild.textContent).toEqual('>');
 			expect(_.listr([key, '&reg;']).firstChild.textContent).toEqual('®');
+			expect(_.listr([key, '&lowbar;']).firstChild.textContent).toEqual('_');
 			expect(_.listr([key, '&#167;']).firstChild.textContent).toEqual('§');
 			expect(_.listr([key, '&#338;']).firstChild.textContent).toEqual('Œ');
 
