@@ -42,8 +42,8 @@ $(document).ready(function () { 'use strict';
 
 				return _.listr(
 					[
-						['img', {src: '//mrg.bz/MzRh9G', alt: 'Image'}],
-						['img', {src: '//mrg.bz/3utxYY', alt: 'Image'}]
+						['img', {src: 'http://mrg.bz/MzRh9G', alt: 'Image'}],
+						['img', {src: 'http://mrg.bz/3utxYY', alt: 'Image'}]
 					]
 				);
 			},
