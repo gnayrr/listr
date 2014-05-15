@@ -1,4 +1,7 @@
 ;(function () { 'use strict';
+	
+	/* this is remembered */
+	var $document = null;
 
 	var listr = function (input, param) {
 
@@ -6,7 +9,6 @@
 
 		var VERSION = '0.2.1';
 
-		var $document = null;
 
 		/* listr operates in the lodash context */
 		var _ = this;
