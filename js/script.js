@@ -35,7 +35,22 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'Creating images is easy too.'
+			text: 'Creating multiple elements at once.'
+		},
+		{
+			lis: function () {
+
+				return _.listr(
+					['ul',
+						['li', '&;"'],
+						['li', '&undefined;'],
+						['li', '&reg;'],
+						['li', '&copy;'],
+						['li', '<script src="malicious.js"></script>']
+					]
+				);
+			},
+			text: 'Automatic escaping of special characters'
 		},
 		{
 			lis: function () {
@@ -47,7 +62,7 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'Creating multiple elements at once.'
+			text: 'Creating images is easy too.'
 		},		
 		{
 			lis: function () {
@@ -72,21 +87,6 @@ $(document).ready(function () { 'use strict';
 				);
 			},
 			text: 'A simple table'
-		},
-		{
-			lis: function () {
-
-				return _.listr(
-					['ul',
-						['li', '&;"'],
-						['li', '&undefined;'],
-						['li', '&reg;'],
-						['li', '&copy;'],
-						['li', '<script src="malicious.js"></script>']
-					]
-				);
-			},
-			text: 'Automatic escaping of special characters'
 		},
 		{
 			lis: function () {
@@ -136,11 +136,11 @@ $(document).ready(function () { 'use strict';
 							]
 						],
 						['button', {disabled: true}, 'Disabled'],
-						['button', 'Don\'t Click Me']
+						['button', 'Don&rsquo;t Click Me']
 					]
 				);
 			},
-			text: 'Showcasing the form elements'
+			text: 'Easily created forms too!'
 		}
 
 	];
