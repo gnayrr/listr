@@ -57,8 +57,19 @@ $(document).ready(function () { 'use strict';
 
 				return _.listr(
 					[
-						['img', {src: 'http://mrg.bz/MzRh9G', alt: 'Image'}],
-						['img', {src: 'http://mrg.bz/3utxYY', alt: 'Image'}]
+						['div', {id: 'special-k'}, 'Click me and see an alert!'],
+						['script', '$("#special-k").on("click", function () { alert("clicked " + this.tagName); });']
+					]
+				);
+			},
+			text: 'SCRIPT tags are not escaped, which allow you to include inline JavaScript'
+		},		
+		{
+			lis: function () {
+
+				return _.listr(
+					[
+						['img', {title: 'Metropolis', alt: 'Image', src: '//buzzdixon.com/wp-content/uploads/2011/09/metropolis025.jpg'}],
 					]
 				);
 			},
@@ -145,9 +156,6 @@ $(document).ready(function () { 'use strict';
 
 	];
 
-
-	// $('#1').find('code').text(strip(a));
-
 	_.each(examples, function (obj, i) {
 
 		var n = i + 1;
@@ -169,24 +177,23 @@ $(document).ready(function () { 'use strict';
 		$el.appendTo('#examples');
 
 		$('#' + n).find('section').append(obj.lis());
-
-		function strip (func) {
-
-			var str = _.escape(func.toString().replace(/\s*[\'\"]use strict[\'\"];?\s*(?=[\n\r])/gi, ''));
-
-			str = str.replace(/function\s*[\S]*?\s*\(\)\s*?\{/i, '')
-						.replace(/\}$/i,'')
-						.replace(/^\s*[\n\r]/,'')
-						.replace(/[\n\r]\s*$/, '')
-						.replace(/return\s*/,'')
-						.replace(/\t\t\t(\t*)/g,'$1');
-						// .replace(/\t(\t*)/g,'$1');
-
-			return str;
-		}	
 	});
 
 });
 
 hljs.initHighlightingOnLoad();
 
+function strip (func) {
+
+	var str = _.escape(func.toString().replace(/\s*[\'\"]use strict[\'\"];?\s*(?=[\n\r])/gi, ''));
+
+	str = str.replace(/function\s*[\S]*?\s*\(\)\s*?\{/i, '')
+				.replace(/\}$/i,'')
+				.replace(/^\s*[\n\r]/,'')
+				.replace(/[\n\r]\s*$/, '')
+				.replace(/return\s*/,'')
+				.replace(/\t\t\t(\t*)/g,'$1');
+				// .replace(/\t(\t*)/g,'$1');
+
+	return str;
+}
