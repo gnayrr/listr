@@ -88,7 +88,7 @@ $(document).ready(function () { 'use strict';
 			lis: function () {
 
 				return _.listr(
-					['img', {title: 'Metropolis', alt: 'Image', src: '//buzzdixon.com/wp-content/uploads/2011/09/metropolis025.jpg'}]
+					['img', {title: 'Metropolis', alt: 'Image', src: 'http//buzzdixon.com/wp-content/uploads/2011/09/metropolis025.jpg'}]
 				);
 			},
 			text: 'Creating images is easy too.'
