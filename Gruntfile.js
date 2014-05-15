@@ -56,6 +56,6 @@ module.exports = function (grunt) { 'use strict';
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
 
 	grunt.registerTask('test', ['jshint', 'jasmine:src']);
-	grunt.registerTask('release', ['test', 'uglify', 'jasmine:dist']);
+	grunt.registerTask('build', ['test', 'uglify', 'jasmine:dist']);
 	grunt.registerTask('default', ['test']);
 };

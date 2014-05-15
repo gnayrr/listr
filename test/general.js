@@ -132,6 +132,17 @@ describe('_.listr plugin/mixin', function () {
 
 	_.mixin({ listr: listr });
 
+	it('is not ready without a document object', function () {
+
+		_.listr('document', {});
+		expect(_.listr('ready')).toBe(false);
+	});
+
+	it('is ready once there is a document object', function () {
+
+		expect(_.listr('document', window.document)).toBe(true);
+	});
+
 	it('is version 0.2.1', function () {
 
 		expect(_.listr('version')).toEqual('0.2.1');
@@ -284,6 +295,7 @@ describe('_.listr basic operations', function () {
 		});
 	});
 
+
 	it('creates single elements with special html entities', function () {
 
 		_.each(html5.semantics, function (el, key) {
@@ -313,6 +325,7 @@ describe('_.listr basic operations', function () {
 		});
 	});
 
+
 	it('creates single elements with invalid html entities', function () {
 
 		_.each(html5.semantics, function (el, key) {
@@ -326,6 +339,7 @@ describe('_.listr basic operations', function () {
 			}
 		});
 	});
+
 
 	it('creates single elements with escaped html string', function () {
 
@@ -351,6 +365,68 @@ describe('_.listr basic operations', function () {
 		expect(_.listr(lis).lastChild.children.length).toEqual(0);
 		expect(_.listr(lis).lastChild.textContent).toEqual('<script></script>');
 		expect(_.listr(lis).lastChild.innerHTML).toEqual('&lt;script&gt;&lt;/script&gt;');
+	});
+
+
+	it('creates single element with inline tags', function () {
+
+		expect(_.listr(['p', ['em', 'hello'], ' world']).firstChild.textContent).toEqual('hello world');
+		expect(_.listr(['p', 'a', 'b','c', ['em', 'd'], 'e']).firstChild.textContent).toEqual('abcde');
+
+		var el = _.listr(
+			[
+				['span', 'a', 'b', 'c'],
+				['span', ['em', 'x'], ['strong', 'y'], ['code', 'z']]
+			]
+		);
+
+		expect(el.firstChild.textContent).toEqual('abc');
+		expect(el.lastChild.textContent).toEqual('xyz');
+
+		el = _.listr(
+			['p',
+				['p', 'crawling ',
+					['span', 'book', 'store', ['em', 'emphasis']],
+					['span', ' tunnel'],
+					' solar beam'
+				]
+			]
+		);
+
+		expect(el.firstChild.textContent).toEqual('crawling bookstoreemphasis tunnel solar beam');
+
+		el = _.listr(
+			['p', {className: 'boom'},
+				[
+					['span', 'Fight ']
+				],
+				'Boomerang ',
+				'rain ', 'shadow ', ['em', 'meats']
+			]
+		);
+
+		expect(el.firstChild.textContent).toEqual('Fight Boomerang rain shadow meats');
+
+
+		el = _.listr(
+			['p', true, false, true]
+		);
+
+		expect(el.firstChild.textContent).toEqual('truefalsetrue');
+
+
+		el = _.listr(
+			['p',
+				'Then things got ',
+				['em',
+					['strong', 'out of control']
+				],
+				' fast!'
+			]
+		);
+
+		expect(el.firstChild.textContent).toEqual('Then things got out of control fast!');
+
 	});
 
 });
@@ -510,4 +586,27 @@ describe('_.listr batch operations', function () {
 
 	});
 
+});
+
+
+describe('_.listr string escapes', function () {
+
+	it('automatically escapes html special characters', function () {
+
+		expect(_.listr(['span', '<']).firstChild.innerHTML).toEqual('&lt;');
+		expect(_.listr(['span', '>']).firstChild.innerHTML).toEqual('&gt;');
+		expect(_.listr(['span', '&lt;']).firstChild.innerHTML).toEqual('&lt;');
+		expect(_.listr(['span', '&eacute;']).firstChild.innerHTML).toEqual('é');
+		expect(_.listr(['span', '&amp;']).firstChild.innerHTML).toEqual('&amp;');
+		expect(_.listr(['span', '&']).firstChild.innerHTML).toEqual('&amp;');
+		expect(_.listr(['div', 'alert("hello");']).firstChild.innerHTML).toEqual('alert("hello");');
+		expect(_.listr(['p', 'killer <em>instinct</em>']).firstChild.innerHTML).toEqual('killer &lt;em&gt;instinct&lt;/em&gt;');
+	});
+
+	it('does not escape characters for SCRIPT tags', function () {
+
+		expect(_.listr(['script', 'alert("hello");']).firstChild.innerHTML).toEqual('alert("hello");');
+		expect(_.listr(['script', '&amp;']).firstChild.innerHTML).toEqual('&amp;');
+		expect(_.listr(['script', '"<>"']).firstChild.innerHTML).toEqual('"<>"');
+	});
 });

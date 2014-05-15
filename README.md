@@ -57,7 +57,7 @@ Returns a DOM fragment containing the DOM elements created by listr. The `parame
 > ###*lis*
 > For lack of imagination, I'm calling this syntax *lis*. This is what *lis* looks like:
 
-> `[string:required, object, string, array, [,array]]`
+> `[string:required, object, string, array, [,string ,array]]`
 
 > #####Example
 > ```js

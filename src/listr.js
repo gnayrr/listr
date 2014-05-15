@@ -1,7 +1,12 @@
 ;(function () { 'use strict';
 	
-	/* this is remembered */
 	var $document = null;
+
+	/* look for document object once */
+	if (typeof window === 'object' && _.isObject(window.document)) {
+
+		$document = window.document;
+	}
 
 	var listr = function (input, param) {
 
@@ -9,16 +14,10 @@
 
 		var VERSION = '0.2.1';
 
-
 		/* listr operates in the lodash context */
 		var _ = this;
 
 		/* document is used to create elements */
-		if (typeof window === 'object' && _.isObject(window.document)) {
-
-			$document = window.document;
-		}
-
 		/* support more methods */
 		if (_.isArray(input)) {
 
@@ -39,13 +38,8 @@
 					return ready();
 
 				case 'document':
-					if (_.isObject(param)) {
-
-						$document = param;
-						return ready();
-					}
-
-					break;
+					$document = param;
+					return ready();
 			}
 		}
 
@@ -87,7 +81,7 @@
 
 			if (el.tagName.match(/script/i)) {
 
-				el.textContent = value;
+				el.textContent += value;
 				return;
 			}
 
@@ -95,7 +89,7 @@
 
 			if ('innerHTML' in el) {
 
-				el.innerHTML = escaped;
+				el.innerHTML += escaped;
 
 			} else if ('textContent' in el) {
 
@@ -182,32 +176,24 @@
 
 					if (lis.length > 2) {
 
-						x = lis[2];
+						x = _.rest(lis, 2);
 
-						if (_.isString(x) || _.isNumber(x) || _.isBoolean(x)) {
 
-							setValue(element, x);
-						} else if (_.isArray(x)) {
+						_.each(x, function (y) {
 
-							x = toFragment(x);
+							if (_.isString(y) || _.isNumber(y) || _.isBoolean(y)) {
 
-							if (x) {
+								setValue(element, y);
+							} else if (_.isArray(y)) {
 
-								element.appendChild(x);
+								var frag = toFragment(y);
+
+								if (frag) {
+
+									element.appendChild(frag);
+								}
 							}
-						}
-
-						if (lis.length > 3) {
-
-							x = _.rest(lis, 3);
-
-							x = toFragment(x);
-
-							if (x) {
-
-								element.appendChild(x);
-							}
-						}
+						});
 					}
 				}
 
