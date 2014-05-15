@@ -86,6 +86,13 @@
 
 		function setValue (el, value) {
 
+			// Do not escape script tags
+			if (el.tagName.match(/script/i)) {
+
+				el.textContent = value;
+				return;
+			}
+
 			var escaped = _.escape(value).replace(/&amp;([^\s;&]{2,7};)/gi, '&$1');
 
 			if ('innerHTML' in el) {
