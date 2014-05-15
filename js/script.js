@@ -22,6 +22,26 @@ $(document).ready(function () { 'use strict';
 		},
 		{
 			lis: function () {
+				return _.listr(
+					['article',
+						['h1', 
+							'After This, ', ['em', 'Arthritis '], ' Hits'
+						],
+						['p', 
+							['strong', 'Long before '], 'the plague'
+						],
+						['p',
+							'Then things got ',
+							['em', ['strong', 'out of control']],
+							' fast!'
+						]
+					]
+				);
+			},
+			text: 'Easily create inline elements too.'
+		},
+		{
+			lis: function () {
 
 				return _.listr(
 					[
@@ -62,15 +82,13 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'SCRIPT tags are not escaped, which allow you to include inline JavaScript'
+			text: 'SCRIPT tags are not escaped, allowing inline JavaScript'
 		},		
 		{
 			lis: function () {
 
 				return _.listr(
-					[
-						['img', {title: 'Metropolis', alt: 'Image', src: 'http://buzzdixon.com/wp-content/uploads/2011/09/metropolis025.jpg'}],
-					]
+					['img', {title: 'Metropolis', alt: 'Image', src: '//buzzdixon.com/wp-content/uploads/2011/09/metropolis025.jpg'}]
 				);
 			},
 			text: 'Creating images is easy too.'
@@ -115,7 +133,7 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'An ordered list and a nested list'
+			text: 'An ordered list with an unordered sublist'
 		},
 		{
 			lis: function () {
