@@ -1,18 +1,15 @@
 ;(function () { 'use strict';
 
-	var $document = null;
-
 	var listr = function (input, param) {
 
 		input = input || [];
 
-
 		var VERSION = '0.2.1';
 
+		var $document = null;
 
 		/* listr operates in the lodash context */
 		var _ = this;
-
 
 		/* document is used to create elements */
 		if (typeof window === 'object' && _.isObject(window.document)) {
@@ -20,13 +17,14 @@
 			$document = window.document;
 		}
 
-
-		/* support commands without consuming more function names */
+		/* support more methods */
 		if (_.isArray(input)) {
 
 			if (ready()) {
 
 				return toFragment(input);
+			} else {
+				console.log('listr is not ready');
 			}
 		} else {
 
@@ -42,12 +40,12 @@
 					if (_.isObject(param)) {
 
 						$document = param;
+						return ready();
 					}
 
 					break;
 			}
 		}
-
 
 		/* check preconditions */
 		function ready () {
@@ -58,14 +56,13 @@
 			);
 		}
 
-
 		/* default invalid format error */
 		function invalid () {
 
 			console.log('invalid input format');
 		}
 
-
+		/* sets all property of propObj to the element */
 		function setProperty (el, propObj) {
 
 			if (el && propObj) {
@@ -83,17 +80,16 @@
 			}
 		}
 
-
+		/* sets text value to the element, escaping when appropriate */
 		function setValue (el, value) {
 
-			// Do not escape script tags
 			if (el.tagName.match(/script/i)) {
 
 				el.textContent = value;
 				return;
 			}
 
-			var escaped = _.escape(value).replace(/&amp;([^\s;&]{2,7};)/gi, '&$1');
+			var escaped = _.escape(value).replace(/&amp;([^\s;&]{2,8};)/gi, '&$1');
 
 			if ('innerHTML' in el) {
 
@@ -109,13 +105,12 @@
 			}
 		}
 
-		// toFragment takes an input array that conforms to 'lis'
-		// and returns a document fragment 
+		/* convert lis array and returns a document fragment */
 		function toFragment (arr) {
 
 			var fragment = $document.createDocumentFragment();
 
-			if (arr.length > 0) {
+			if (arr && arr.length > 0) {
 
 				var head = arr[0];
 
@@ -149,14 +144,13 @@
 			return fragment;
 		}
 
-
-		// toElement takes a 'lis' and returns a single DOM element
+		/* convert one lis to one DOM element */
 		function toElement (lis) {
 
 			var element = null;
 			var x;
 
-			if (lis.length > 0 && _.isString(lis[0])) {
+			if (lis && lis.length > 0 && _.isString(lis[0])) {
 
 				element = $document.createElement(lis[0]);
 
@@ -222,10 +216,9 @@
 
 			return element;
 		}
-
 	};
 
-
+	/* handle client and browser exposure */
 	var root = (typeof window === 'object' && window) || this;
 
 	if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
