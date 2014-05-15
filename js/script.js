@@ -120,9 +120,9 @@ $(document).ready(function () { 'use strict';
 						['fieldset',
 							['legend', 'Options'],
 							['input', {type: 'checkbox', id: 's1', name: 'options', value: 'show_this'}],
-							['label', {for:'s1'}, 'Show This'],
+							['label', {'for':'s1'}, 'Show This'],
 							['input', {type: 'checkbox', id: 's2', name: 'options', value: 'display_that'}],
-							['label', {for:'s2'}, 'Display That']
+							['label', {'for':'s2'}, 'Display That']
 						],
 						['fieldset',
 							['legend', 'Settings'],
