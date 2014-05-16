@@ -15,14 +15,22 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'Simple nested elements.'
+			text: 'Simple nested elements.',
+			test: function ($el) {
+
+				return (
+					$el.children().length === 2 &&
+					$el.children().first().text() === 'Slow Down' &&
+					$el.children().last().text() === 'Boom box bell-bottoms'
+				);
+			}
 		},
 		{
 			lis: function () {
 				return _.listr(
-					['article',
+					['article', {className: 'main'},
 						['h1', 
-							'After This, ', ['em', 'Arthritis '], ' Hits'
+							'After This, ', ['em', 'Arthritis '], 'Hits'
 						],
 						['p', 
 							['strong', 'Long before '], 'the plague'
@@ -35,7 +43,19 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'Easily create inline elements too.'
+			text: 'Easily create inline elements too.',
+			test: function ($el) {
+
+				return (
+					$el.hasClass('main')	&&
+					$el.prop('tagName').toLowerCase() === 'article'	&&
+					$el.children().length === 3	&&
+					$el.children().first().text() === 'After This, Arthritis Hits'	&&
+					$el.children().last().text() === 'Then things got out of control fast!'	&&
+					$el.find('em').text() === 'Arthritis out of control'	&&
+					$el.find('strong').text() === 'Long before out of control'
+				);
+			}
 		},
 		{
 			lis: function () {
@@ -52,7 +72,19 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'Creating multiple elements at once.'
+			text: 'Creating multiple elements at once.',
+			test: function ($el) {
+
+				return (
+					$el.length === 4 &&
+					$($el[0]).text() === 'A Title Before Time' &&
+					$($el[1]).text() === 'Substituting subtitles for subjects' &&
+					$($el[2]).text() === 'Hey man, sup?' &&
+					$($el[3]).children().length === 2 &&
+					$($el[3]).children().first().text() === 'Medical' &&
+					$($el[3]).children().last().text() === 'Device'
+				);
+			}
 		},
 		{
 			lis: function () {
@@ -67,7 +99,19 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'Automatic escaping of special characters'
+			text: 'Automatic escaping of special characters',
+			test: function ($el) {
+
+				return (
+					$el.prop('tagName').toLowerCase() === 'ul' &&
+					$el.children().length === 5 &&
+					$el.children().first().text() === '&;"' &&
+					$($el.children()[1]).text() === '&undefined;' &&
+					$($el.children()[2]).text() === '®' &&
+					$($el.children()[3]).text() === '©' &&
+					$($el.children()[4]).text() === '<script src="malicious.js"></script>'
+				);
+			}
 		},
 		{
 			lis: function () {
@@ -79,7 +123,16 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'SCRIPT tags are not escaped, allowing inline JavaScript'
+			text: 'SCRIPT tags are not escaped, allowing inline JavaScript',
+			test: function ($el) {
+
+				return (
+					$($el[0]).prop('tagName').toLowerCase() === 'button' &&
+					$($el[0]).prop('id') === 'special-k' &&
+					$($el[0]).text() === 'Click me and see an alert!' &&
+					$($el[1]).prop('tagName').toLowerCase() === 'script'
+				);
+			}
 		},		
 		{
 			lis: function () {
@@ -88,7 +141,13 @@ $(document).ready(function () { 'use strict';
 					['img', {title: 'Metropolis', alt: 'Image', src: 'http://buzzdixon.com/wp-content/uploads/2011/09/metropolis025.jpg'}]
 				);
 			},
-			text: 'Creating images is easy too.'
+			text: 'Creating images is easy too.',
+			test: function ($el) {
+
+				return (
+					$el.prop('tagName').toLowerCase() === 'img'
+				);
+			}			
 		},		
 		{
 			lis: function () {
@@ -112,7 +171,25 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'A simple table'
+			text: 'A simple table',
+			test: function ($el) {
+
+				var pass = (
+					$el.children().length === 3 &&
+					$el.prop('tagName').toLowerCase() === 'table'
+				);
+
+				$el.children().each(function (i,e) {
+
+					pass = pass && (
+
+						$(e).children().length === 3 &&
+						$(e).prop('tagName').toLowerCase() === 'tr'
+					);
+				});
+
+				return pass;
+			}
 		},
 		{
 			lis: function () {
@@ -130,14 +207,23 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'An ordered list with an unordered sublist'
+			text: 'An ordered list with an unordered sublist',
+			test: function ($el) {
+
+				return (
+					$el.prop('tagName').toLowerCase() === 'ol' &&
+					$el.children().length === 3 &&
+					$($el.children()[0]).text() === 'Eggs' &&
+					$($el.children()[1]).text() === 'Peanuts' &&
+					$($el.children()[2]).children().first().children().length === 3
+				);
+			}
 		},
 		{
 			lis: function () {
 				return _.listr(
 					['form',
 						['input', {type: 'text', placeholder: 'Name', spellcheck: false}],
-						// ['input', {type: 'email', placeholder: 'Email Address'}],
 						['select', {name: 'category'},
 							['option', {value: 'red'}, 'Public'],
 							['option', {value: 'blue', selected: true}, 'Private'],
@@ -162,23 +248,62 @@ $(document).ready(function () { 'use strict';
 							]
 						],
 						['button', {disabled: true}, 'Disabled'],
-						['button', 'Don&rsquo;t Click Me']
+						['button', 'Don\'t Click Me']
 					]
 				);
 			},
-			text: 'Easily created forms too!'
-		}
+			text: 'Easily created forms too!',
+			test: function ($el) {
 
+				return (
+					$el.prop('tagName').toLowerCase() === 'form' &&
+					$el.children().length === 6 &&
+					$el.children().first().prop('tagName').toLowerCase() === 'input' &&
+					$el.children().last().prop('tagName').toLowerCase() === 'button' &&
+					$($el.children()[1]).children().length === 3 &&
+					$($el.children()[2]).children().length === 5 &&
+					$($el.children()[3]).children().length === 3 &&
+					$($el.children()[4]).prop('disabled') === true
+				);
+			}
+		},
+		{
+			lis: function () {
+				return _.listr(
+					['span', 'a', 'b', 'c', 'd',
+						['em', 'e']
+					]
+				);
+			},
+			text: 'An ordered list with an unordered sublist',
+			test: function ($el) {
+
+				return $el.text() === 'abcde';
+			}
+		}
 	];
 
 	_.each(examples, function (obj, i) {
+
+		var $c = $(obj.lis()).children();
+
+		var testPass = false;
+		var untested = false;
+
+		if (obj.test) {
+
+			testPass = obj.test($c);
+		} else {
+
+			untested = true;
+		}
 
 		var n = i + 1;
 
 		var $el = $(_.listr(
 
-			['article', {id: n},
-				['header',
+			['article', {id: n, className: untested? 'untested' : (testPass ? 'pass' : 'fail')},
+				['header', {title: untested ? 'No Test Case' : (testPass ? '' : 'Failed Test')},
 					['h2', 'Example ' + n],
 					['p', obj.text || '']
 				],
@@ -191,8 +316,15 @@ $(document).ready(function () { 'use strict';
 
 		$el.appendTo('#examples');
 
-		$('#' + n).find('section').append(obj.lis());
+		$c = $('#' + n).find('section').append(obj.lis()).children().first();
 	});
+
+
+	$('#test-countall').text(examples.length);
+	$('#test-countran, #test-tested').text($('#examples').children().length);
+	$('#test-pass').text($('#examples .pass').length);
+	$('#test-fail').text($('#examples .fail').length);
+	$('#test-untested').text($('#examples .untested').length);
 
 });
 
