@@ -79,9 +79,16 @@
 		/* sets text value to the element, escaping when appropriate */
 		function setValue (el, value) {
 
-			if (el.tagName.match(/script/i)) {
+			if (el.tagName.toLowerCase() === 'script') {
 
-				el.textContent += value;
+				if ('text' in el) {
+
+					el.text += value;
+				} else {
+
+					el.innerHTML += value;
+				}
+
 				return;
 			}
 
@@ -93,11 +100,11 @@
 
 			} else if ('textContent' in el) {
 
-				el.textContent = value;
+				el.textContent += value;
 
 			} else {
 
-				el.innerText = value;
+				el.innerText += value;
 			}
 		}
 
