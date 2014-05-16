@@ -99,7 +99,7 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'Automatic escaping of special characters',
+			text: 'Automatic escaping of special characters.',
 			test: function ($el) {
 
 				return (
@@ -123,7 +123,7 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'SCRIPT tags are not escaped, allowing inline JavaScript',
+			text: 'SCRIPT tags are not escaped, allowing inline JavaScript.',
 			test: function ($el) {
 
 				return (
@@ -171,7 +171,7 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'A simple table',
+			text: 'A simple table.',
 			test: function ($el) {
 
 				var pass = (
@@ -207,7 +207,7 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'An ordered list with an unordered sublist',
+			text: 'An ordered list with an unordered sublist.',
 			test: function ($el) {
 
 				return (
@@ -252,7 +252,7 @@ $(document).ready(function () { 'use strict';
 					]
 				);
 			},
-			text: 'Easily created forms too!',
+			text: 'Create structured forms.',
 			test: function ($el) {
 
 				return (
@@ -270,15 +270,72 @@ $(document).ready(function () { 'use strict';
 		{
 			lis: function () {
 				return _.listr(
-					['span', 'a', 'b', 'c', 'd',
-						['em', 'e']
+					['span', 'a', 1, 'c', 2, true, false, 'null',
+						/background/,
+						['em', 'e'],
+						null,
+						undefined
 					]
 				);
 			},
-			text: 'An ordered list with an unordered sublist',
+			text: 'Multiple inline text, numbers, boolean. Regular expressions, undefined, and null are ommitted.',
 			test: function ($el) {
 
-				return $el.text() === 'abcde';
+				return $el.text() === 'a1c2truefalsenulle';
+			}
+		},
+		{
+			lis: function () {
+				return _.listr(
+					['p', 
+						'&amp;',
+						'&lt;',
+						['em', '&gt;'],
+						'&&amp;&'
+					]
+				);
+			},
+			text: 'Multiple inline HTML entities and text.',
+			test: function ($el) {
+
+				return $el.text() === '&<>&&&';
+			}
+		},
+		{
+			lis: function () {
+				return _.listr(
+					['p', 
+						['div',
+							['div',
+								['div',
+									['div',
+										['em', 'boo'],
+										' far'
+									],
+									['div',
+										['em', 'foo'],
+										' bar'
+									]
+								]
+							],
+							['div',
+								['div',
+									['div',
+										['span', '&lowbar;'],
+										['span', '&ndash;'],
+										['span', '-'],
+										' dangerous duty'
+									]
+								]
+							]
+						]
+					]
+				);
+			},
+			text: 'Weird nesting elements.',
+			test: function ($el) {
+
+				return $el.text() === 'boo farfoo bar_–- dangerous duty';
 			}
 		}
 	];
