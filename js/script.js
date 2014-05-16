@@ -4,9 +4,6 @@ $(document).ready(function () { 'use strict';
 
 	if (!_.listr('ready')) { console.log('listr not ready');}
 
-
-	hljs.configure({tabReplace: '    '});
-
 	var examples = [
 
 		{
@@ -77,7 +74,7 @@ $(document).ready(function () { 'use strict';
 
 				return _.listr(
 					[
-						['div', {id: 'special-k'}, 'Click me and see an alert!'],
+						['button', {id: 'special-k'}, 'Click me and see an alert!'],
 						['script', '$("#special-k").on("click", function () { alert("clicked " + this.tagName); });']
 					]
 				);
@@ -140,7 +137,7 @@ $(document).ready(function () { 'use strict';
 				return _.listr(
 					['form',
 						['input', {type: 'text', placeholder: 'Name', spellcheck: false}],
-						['input', {type: 'email', placeholder: 'Email Address'}],
+						// ['input', {type: 'email', placeholder: 'Email Address'}],
 						['select', {name: 'category'},
 							['option', {value: 'red'}, 'Public'],
 							['option', {value: 'blue', selected: true}, 'Private'],
@@ -185,7 +182,7 @@ $(document).ready(function () { 'use strict';
 					['h2', 'Example ' + n],
 					['p', obj.text || '']
 				],
-				['pre',
+				['pre', {className: 'prettyprint'},
 					['code', strip(obj.lis)]
 				],
 				['section']
@@ -199,7 +196,12 @@ $(document).ready(function () { 'use strict';
 
 });
 
-hljs.initHighlightingOnLoad();
+try {
+
+	/* highlightjs doesn't work for ie8, so catch the exception if it is thrown */
+	hljs.initHighlightingOnLoad();
+	
+} catch (e) {}
 
 function strip (func) {
 
@@ -213,5 +215,5 @@ function strip (func) {
 				.replace(/\t\t\t(\t*)/g,'$1');
 				// .replace(/\t(\t*)/g,'$1');
 
-	return str;
+	return str.replace(/\t/g, '   ');
 }
