@@ -148,9 +148,9 @@ describe('_.listr plugin/mixin', function () {
 		expect(_.listr('document', window.document)).toBe(true);
 	});
 
-	it('is version 0.2.1', function () {
+	it('is version 0.3.1', function () {
 
-		expect(_.listr('version')).toEqual('0.2.1');
+		expect(_.listr('version')).toEqual('0.3.1');
 	});
 
 	it('has access to the DOM via the window object', function () {
