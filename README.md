@@ -20,8 +20,8 @@ _.listr(['h1', 'Title TK']);
 _.listr(['img', {src: '//url.to/image.png', alt: 'Some Image'}]);
 
 
-// Create inline elements intuitively
-_.listr(['p', 'There was nothing ', ['em', 'so special '], 'about the rabbit.']);
+// Create nested inline elements
+_.listr(['p', 'There was nothing ', ['em', 'so ', ['strong', 'special ']], 'about the rabbit.']);
 
 
 // Creates an HTML5 proper article structure
