@@ -1,4 +1,4 @@
-#lodash.listr v0.2.1
+#lodash.listr v0.3.1
 A Lo-Dash mixin for generating DOM elements
 
 ###Overview
@@ -8,7 +8,7 @@ listr helps you create DOM elements. Everything you already know about DOM eleme
 It works in both the client and the server (with Node.js and something like phantom or jsdom).
 
 ####Example
-> Fore more examples with live output, [check here](//gnayrr.github.io/listr "listr Page")
+> Fore more examples with live output and tests, see the [project page](//gnayrr.github.io/listr "listr Page")
 
 ```js
 
@@ -18,6 +18,10 @@ _.listr(['h1', 'Title TK']);
 
 // Creates an image
 _.listr(['img', {src: '//url.to/image.png', alt: 'Some Image'}]);
+
+
+// Create inline elements intuitively
+_.listr(['p', 'There was nothing ', ['em', 'so special '], 'about the rabbit.']);
 
 
 // Creates an HTML5 proper article structure
