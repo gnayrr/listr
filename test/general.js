@@ -138,6 +138,11 @@ describe('_.listr plugin/mixin', function () {
 		expect(_.listr('ready')).toBe(false);
 	});
 
+	it('returns undefined with called before ready', function () {
+
+		expect(_.listr(['p', 'Boo'])).toBe(undefined);
+	});
+
 	it('is ready once there is a document object', function () {
 
 		expect(_.listr('document', window.document)).toBe(true);
@@ -589,7 +594,7 @@ describe('_.listr batch operations', function () {
 });
 
 
-describe('_.listr string escapes', function () {
+describe('_.listr text behaviors', function () {
 
 	it('automatically escapes html special characters', function () {
 
@@ -609,4 +614,65 @@ describe('_.listr string escapes', function () {
 		expect(_.listr(['script', '&amp;']).firstChild.innerHTML).toEqual('&amp;');
 		expect(_.listr(['script', '"<>"']).firstChild.innerHTML).toEqual('"<>"');
 	});
+
+	it('ignores null, undefined, and regular expressions', function () {
+
+		expect(_.listr(['p', null]).firstChild.textContent).toEqual('');
+		expect(_.listr(['p', undefined]).firstChild.textContent).toEqual('');
+		expect(_.listr(['p', /kkk/]).firstChild.textContent).toEqual('');
+		expect(_.listr(['p', undefined, null, /kkk/]).firstChild.textContent).toEqual('');
+	});
+
+	it('accepts strings, numbers and booleans', function () {
+
+		expect(_.listr(['p', 'string']).firstChild.textContent).toEqual('string');
+		expect(_.listr(['p', 9]).firstChild.textContent).toEqual('9');
+		expect(_.listr(['p', 0]).firstChild.textContent).toEqual('0');
+		expect(_.listr(['p', true]).firstChild.textContent).toEqual('true');
+		expect(_.listr(['p', false]).firstChild.textContent).toEqual('false');
+		expect(_.listr(['p', '']).firstChild.textContent).toEqual('');
+		expect(_.listr(['p', true, false, false]).firstChild.textContent).toEqual('truefalsefalse');
+	});
+
+	it('renders JavaScript in escaped plain text', function () {
+
+		expect(_.listr(['p', 'alert("killer app");']).firstChild.textContent).toEqual('alert("killer app");');
+		expect(_.listr(['p', 'alert(\'killer app\');']).firstChild.textContent).toEqual('alert(\'killer app\');');
+		expect(_.listr(['p', 'new String(\'boomerang\')']).firstChild.textContent).toEqual('new String(\'boomerang\')');
+	});
+
+	it('renders inline elements as expected', function () {
+
+		var el = _.listr(['p', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']);
+
+		expect(el.firstChild.textContent).toEqual('abcdefghijk');
+
+		el = _.listr(
+			['div',
+				['span', 'apple '],
+				'bottom jeans, ',
+				['em', 'boots with the '],
+				['strong', 'furrr']
+			]
+		);
+
+		expect(el.firstChild.textContent).toEqual('apple bottom jeans, boots with the furrr');
+
+		el = _.listr(['div', 'div', 'div', 'div', 'div', 'div']);
+
+		expect(el.firstChild.textContent).toEqual('divdivdivdivdiv');
+
+		el = _.listr(['p', '&&&', '&', 'amp', ';', '@', '&copy;', '&lt;', '&l;', '&lt', ';']);
+
+		expect(el.firstChild.textContent).toEqual('&&&&amp;@©<&l;&lt;');
+
+		el = _.listr(['p', '&amp;']);
+
+		expect(el.firstChild.textContent).toEqual('&');
+
+		el = _.listr(['p', '&', 'amp', ';']);
+
+		expect(el.firstChild.textContent).toEqual('&amp;');
+	});
+
 });

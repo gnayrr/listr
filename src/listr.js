@@ -25,7 +25,9 @@
 
 				return toFragment(input);
 			} else {
-				console.log('listr is not ready');
+
+				invalid('Not ready: document object not set');
+				return undefined;
 			}
 		} else {
 
@@ -52,10 +54,10 @@
 			);
 		}
 
-		/* default invalid format error */
-		function invalid () {
+		/* default invalid format error, does nothing once uglified */
+		function invalid (msg) {
 
-			console.log('invalid input format');
+			console.log(msg); // stripped out after minify
 		}
 
 		/* sets all property of propObj to the element */
@@ -140,7 +142,7 @@
 
 				} else {
 
-					invalid();
+					invalid('Input is invalid, the first element must be either a String or Array');
 				}
 			}
 
@@ -206,7 +208,7 @@
 
 			} else {
 
-				invalid();
+				invalid('Input is invalid, the first element must be a String');
 			}
 
 			return element;
