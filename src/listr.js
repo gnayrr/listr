@@ -3,7 +3,7 @@
 	var $document = null;
 
 	/* look for document object once */
-	if (typeof window === 'object' && _.isObject(window.document)) {
+	if (typeof window === 'object' && window.document) {
 
 		$document = window.document;
 	}
