@@ -17,11 +17,15 @@ _.listr(['h1', 'Title TK']);
 
 
 // Creates an image
-_.listr(['img', {src: '//url.to/image.png', alt: 'Some Image'}]);
+_.listr(
+  ['img', {src: '//url.to/image.png', alt: 'Some Image', title: 'Image'}]
+);
 
 
 // Create nested inline elements
-_.listr(['p', 'There was nothing ', ['em', 'so ', ['strong', 'special ']], 'about the rabbit.']);
+_.listr(
+  ['p', 'There was nothing so ', ['em', 'remarkable '], 'about the rabbit.']
+);
 
 
 // Creates an HTML5 proper article structure
