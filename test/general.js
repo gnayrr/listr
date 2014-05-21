@@ -138,7 +138,7 @@ describe('_.listr plugin/mixin', function () {
 		expect(_.listr('ready')).toBe(false);
 	});
 
-	it('returns undefined with called before ready', function () {
+	it('returns undefined when called before ready', function () {
 
 		expect(_.listr(['p', 'Boo'])).toBe(undefined);
 	});
