@@ -1,38 +1,39 @@
 {
-	"name": "listr",
-	"description": "A Lo-Dash mixin for generating DOM elements",
-	"version": "0.3.1",
-	"homepage": "http://gnayrr.github.io/listr",
-	"author": {
-		"name" : "gnayrr",
-		"url": "http://gnayrr.com"
-	},
-	"repository" : { 
-		"type" : "git",
-		"url" : "git://github.com/gnayrr/listr.git"
-	},
-	"bugs": {
-		"url" : "https://github.com/gnayrr/listr/issues"
-	},
-	"directories": {
-		"test": "test"
-	},
-	"license": {
-		"type" : "MIT",
-		"url" : "https://github.com/gnayrr/listr/blob/master/LICENSE"
-	},
-	"engines": {
-		"node": ">= 0.10.0"
-	},
-	"scripts": {
-		"test": "grunt test"
-	},
-	"dependencies": {
-		"lodash": "~2.4.1"
-	},
-	"devDependencies": {
-		"grunt-contrib-jasmine": "~0.6.4",
-		"grunt-contrib-jshint": "~0.10.0",
-		"grunt-contrib-uglify": "~0.4.0"
-	}
+  "name": "listr",
+  "description": "A Lo-Dash mixin for generating DOM elements",
+  "version": "0.3.1",
+  "homepage": "http://gnayrr.github.io/listr",
+  "author": {
+    "name": "gnayrr",
+    "url": "http://gnayrr.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gnayrr/listr.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gnayrr/listr/issues"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/gnayrr/listr/blob/master/LICENSE"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jasmine": "^0.6.4",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "^0.4.0"
+  }
 }
