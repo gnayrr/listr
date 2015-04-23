@@ -22,13 +22,13 @@
 		"url" : "https://github.com/gnayrr/listr/blob/master/LICENSE"
 	},
 	"engines": {
-		"node": ">= 0.8.0"
+		"node": ">= 0.10.0"
 	},
 	"scripts": {
 		"test": "grunt test"
 	},
 	"dependencies": {
-		"lodash": ">=2.*"
+		"lodash": "~2.*"
 	},
 	"devDependencies": {
 		"grunt": "~0.4.4",
